@@ -25,7 +25,7 @@ export const updateContact = async (contactId, payload) => {
   const updatedContact = await Contact.findOneAndUpdate(
     { _id: contactId },
     payload,
-    { new: true }, // Опція { new: true } повертає оновлений документ
+    { new: true }, 
   );
   return updatedContact;
 };

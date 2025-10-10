@@ -1,23 +1,23 @@
-// src/routers/contacts.js
+
 
 import { Router } from 'express';
 import {
   getContactsController,
   getContactByIdController,
-  createContactController,    // Added
-  patchContactController,     // Added
-  deleteContactController,    // Added
+  createContactController,
+  patchContactController,
+  deleteContactController,
 } from '../controllers/contacts.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js'; // Added
+import { ctrlWrapper } from '../utils/ctrlWrapper.js'; 
 
 const router = Router();
 
-// We now wrap each controller with ctrlWrapper
+
 router.get('/contacts', ctrlWrapper(getContactsController));
 
 router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
 
-// Added new routes
+
 router.post('/contacts', ctrlWrapper(createContactController));
 
 router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
