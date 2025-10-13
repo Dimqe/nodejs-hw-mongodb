@@ -1,4 +1,5 @@
 
+
 import {
   getAllContacts,
   getContactById,
@@ -7,13 +8,28 @@ import {
   deleteContact,
 } from '../services/contacts.js';
 
-
 import createHttpError from 'http-errors';
+
 
 
 export const getContactsController = async (req, res) => {
   
-  const contacts = await getAllContacts();
+  const { page, perPage, sortBy, sortOrder, type, isFavourite } = req.query;
+
+
+  const filter = {
+    type,
+    isFavourite,
+  };
+
+  
+  const contacts = await getAllContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
 
   res.status(200).json({
     status: 200,
@@ -22,11 +38,12 @@ export const getContactsController = async (req, res) => {
   });
 };
 
+
+
 export const getContactByIdController = async (req, res) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
 
-  
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
@@ -37,8 +54,6 @@ export const getContactByIdController = async (req, res) => {
     data: contact,
   });
 };
-
-
 
 export const createContactController = async (req, res) => {
   const contact = await createContact(req.body);
@@ -71,7 +86,6 @@ export const deleteContactController = async (req, res) => {
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
-  
- 
+
   res.status(204).send();
 };
