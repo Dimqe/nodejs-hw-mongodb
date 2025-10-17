@@ -1,4 +1,5 @@
 
+
 import { model, Schema } from 'mongoose';
 
 const contactSchema = new Schema(
@@ -26,6 +27,9 @@ const contactSchema = new Schema(
       default: 'personal',
     },
     
+    photo: {
+      type: String,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'users',
