@@ -1,0 +1,42 @@
+
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Contacts API 
+  license:
+    name: MIT 
+    url: https://opensource.org/licenses/MIT
+  description: An API for managing contacts with user authentication. # Опис вашого API
+tags: 
+  - name: Auth
+    description: Authentication related endpoints
+  - name: Contacts
+    description: Contacts management endpoints
+servers: 
+  - url: http://localhost:3000
+    description: Local development server
+  - url: https://nodejs-hw-mongodb-3q5x.onrender.com 
+    description: Production server
+paths:
+  /auth/login:
+    post:
+      $ref: '../swagger/paths/auth/login/post.yaml'
+  /contacts: 
+  
+    get:
+      $ref: '../swagger/paths/contacts/get.yaml'
+    post:
+      $ref: '../swagger/paths/contacts/post.yaml'
+  /contacts/{contactId}:
+    get:
+      $ref: '../swagger/paths/contacts/{contactId}/get.yaml'
+    patch:
+      $ref: '../swagger/paths/contacts/{contactId}/patch.yaml'
+    delete:
+      $ref: '../swagger/paths/contacts/{contactId}/delete.yaml'
+components:
+  securitySchemes: 
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 

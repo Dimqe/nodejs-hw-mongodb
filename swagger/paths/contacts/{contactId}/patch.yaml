@@ -1,0 +1,80 @@
+
+tags:
+  - Contacts
+summary: Update a contact by ID
+operationId: updateContactById
+description: Updates an existing contact by its unique ID. Allows updating photo.
+security:
+  - bearerAuth: []
+parameters: 
+  - in: path
+    name: contactId
+    required: true
+    schema:
+      type: string
+      format: ObjectId
+    description: The unique identifier of the contact to update.
+requestBody: 
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties: 
+          name:
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: Bruce Wayne (updated)
+          phoneNumber:
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: "(050) 444-55-66"
+          email:
+            type: string
+            format: email
+            example: bruce.updated@wayne.com
+          isFavourite:
+            type: boolean
+            example: true
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            example: home
+          photo: 
+            type: string
+            format: binary
+responses:
+  '200': 
+    description: Successfully updated the contact.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully patched a contact!
+            data:
+              $ref: '../../../components/schemas/Contact.yaml'
+  '400': 
+    description: Bad Request - Validation error.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/responses/Error400.yaml'
+  '401': 
+    description: Unauthorized.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/responses/Error401.yaml'
+  '404':
+    description: Contact not found.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/responses/Error404.yaml' 

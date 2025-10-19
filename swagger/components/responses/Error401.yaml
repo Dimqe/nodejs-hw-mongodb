@@ -1,0 +1,9 @@
+
+type: object
+properties:
+  status:
+    type: integer
+    example: 401
+  message:
+    type: string
+    example: Authorization header is missing

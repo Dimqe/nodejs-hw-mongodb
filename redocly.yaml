@@ -1,0 +1,19 @@
+# redocly.yaml
+# See https://redocly.com/docs/cli/configuration/ for more information.
+apis:
+  main@v1: # Можна назвати як завгодно, наприклад, 'contacts-api@v1'
+    root: docs/openapi.yaml
+extends:
+  - recommended
+rules:
+  no-unused-components: error # Помилка, якщо є невикористані компоненти
+theme:
+  htmlTemplate: ./docs/index.html # Вказуємо шлях до нашого HTML-шаблону
+  colors:
+    primary:
+      main: '#32329f'
+  generateCodeSamples:
+    languages: # Приклади коду для мов
+      - lang: curl
+      - lang: Node.js
+      - lang: JavaScript

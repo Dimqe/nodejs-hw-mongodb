@@ -1,0 +1,71 @@
+
+tags:
+  - Contacts
+summary: Create a new contact
+operationId: createContact
+description: Adds a new contact to the user's collection. Allows uploading a photo.
+security:
+  - bearerAuth: []
+requestBody: 
+  required: true
+  content:
+    multipart/form-data: 
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: Bruce Wayne
+          phoneNumber:
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: "(050) 111-22-33"
+          email:
+            type: string
+            format: email
+            example: bruce@wayne-enterprises.com
+          isFavourite:
+            type: boolean
+            example: false
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            example: work
+          photo: 
+            type: string
+            format: binary
+        required: 
+          - name
+          - phoneNumber
+          - contactType
+responses:
+  '201': 
+    description: Successfully created a new contact.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact!
+            data:
+              $ref: '../../components/schemas/Contact.yaml' 
+  '400':
+    description: Bad Request - Validation error (e.g., missing required fields, invalid format).
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/Error400.yaml'
+  '401': 
+    description: Unauthorized.
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/Error401.yaml'
