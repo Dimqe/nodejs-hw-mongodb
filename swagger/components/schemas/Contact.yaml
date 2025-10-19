@@ -1,0 +1,46 @@
+
+type: object
+properties:
+  _id:
+    type: string
+    format: ObjectId
+    example: 68f1937a441a3339b06514be
+  name:
+    type: string
+    example: Bruce Wayne
+  phoneNumber:
+    type: string
+    example: "(050) 111-22-33"
+  email:
+    type: string
+    format: email
+    example: bruce@wayne-enterprises.com
+  isFavourite:
+    type: boolean
+    example: true
+  contactType:
+    type: string
+    enum: [work, home, personal]
+    example: work
+  photo:
+    type: string
+    format: url
+    example: https://res.cloudinary.com/.../image.png
+  userId:
+    type: string
+    format: ObjectId
+    description: ID of the user who owns the contact
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+  - userId
+  - createdAt
+  - updatedAt

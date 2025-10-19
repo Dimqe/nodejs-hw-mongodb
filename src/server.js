@@ -7,9 +7,16 @@ import contactsRouter from './routers/contacts.js';
 import authRouter from './routers/auth.js'; 
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import swaggerUi from 'swagger-ui-express';
+import fs from 'node:fs'; // <-- ДОДАЙТЕ ЦЕЙ ІМПОРТ
+import path from 'node:path';
+
+const swaggerFilePath = path.resolve('docs', 'swagger.json');
+const swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, 'utf-8'));
 
 export const setupServer = () => {
   const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(express.json());
   app.use(cors());

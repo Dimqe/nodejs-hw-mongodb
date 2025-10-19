@@ -1,0 +1,57 @@
+
+tags:
+  - Auth
+summary: Login user
+operationId: loginUser
+description: Authenticates a user and returns access and refresh tokens.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            example: testuser@example.com
+          password:
+            type: string
+            format: password
+            minLength: 6
+            example: password123
+        required:
+          - email
+          - password
+responses:
+  '200':
+    description: Successfully logged in. Access token returned in body, refresh token set in cookies.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in an user!
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  '400':
+    description: Bad Request - Validation error.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/responses/Error400.yaml' 
+  '401':
+    description: Unauthorized - Invalid email or password.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/responses/Error401.yaml' 
